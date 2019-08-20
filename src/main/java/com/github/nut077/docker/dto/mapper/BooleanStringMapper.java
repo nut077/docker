@@ -10,13 +10,13 @@ public interface BooleanStringMapper {
     if (bool == null) {
       return "";
     }
-    return bool ? "Y" : "N";
+    return bool ? "true" : "false";
   }
 
   default Boolean toBoolean(String str) {
     if (StringUtils.isEmpty(str)) {
       return Boolean.FALSE;
     }
-    return str.trim().toLowerCase().startsWith("y") ? Boolean.TRUE : Boolean.FALSE;
+    return str.trim().toLowerCase().equals("true") ? Boolean.TRUE : Boolean.FALSE;
   }
 }
