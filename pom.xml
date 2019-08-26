@@ -99,6 +99,8 @@
 	</dependencies>
 
 	<build>
+		<defaultGoal>package</defaultGoal>
+		<finalName>docker-school</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
