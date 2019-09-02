@@ -1,6 +1,7 @@
 version: "3.7"
 services:
   docker-school:
+    build: .
     image: docker-school
     ports:
       - "8080:8080"
@@ -11,6 +12,8 @@ services:
 
   schooldb:
     image: mysql:8.0.17
+    ports:
+      - "3306:3306"
     networks:
       - school-mysql
     environment:
