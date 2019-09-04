@@ -1,24 +1,26 @@
 version: "3.7"
 services:
-  docker-school:
-    build: .
-    image: docker-school
-    ports:
-      - "8080:8080"
-    networks:
-      - school-mysql
-    depends_on:
-      - schooldb
-
   schooldb:
     image: mysql:8.0.17
     ports:
       - "3306:3306"
     networks:
       - school-mysql
+    restart: always
     environment:
       - MYSQL_ROOT_PASSWORD=123
       - MYSQL_DATABASE=school
+#  docker-school:
+#    build: .
+#    image: docker-school
+#    container_name: docker-school-container
+#    restart: always
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - school-mysql
+#    depends_on:
+#      - schooldb
 
 networks:
   school-mysql:
