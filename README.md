@@ -5,7 +5,9 @@ docker run --name schooldb-admin -d --link schooldb:db -p 8081:80 phpmyadmin/php
 docker ps ดู containerid ของ container name = schooldb<br>
 docker exec -it #containerid# bash<br>
 mysql -uroot -p123<br>
-ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123';<br><br>
-or <br>
-docker-compose up -d
+ALTER USER 'root'@'%' IDENTIFIED WITH mysql_native_password BY '123';<br>
+
+set jasypt<br>
+cmd C:\Users\%user%\.m2\repository\org\jasypt\jasypt\1.9.2<br>
+java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="123" password=secretkey algorithm=PBEWithMD5AndDES
 

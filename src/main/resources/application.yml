@@ -20,11 +20,17 @@ server:
   servlet:
     context-path: /
 
+jasypt:
+  encryptor:
+    algorithm: PBEWithMD5AndDES
+    password: secretkey
+
 spring:
   datasource:
     url: jdbc:mysql://localhost:3306/school
     username: root
-    password: 123
+    #password: 123
+    password: ENC(pjL0VcIVf7fqbvUPJ2OifA==)
 
   jpa:
     show-sql: true
