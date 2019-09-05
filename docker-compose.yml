@@ -2,25 +2,29 @@ version: "3.7"
 services:
   schooldb:
     image: mysql:8.0.17
+    container_name: schooldb
     ports:
-      - "3306:3306"
-    networks:
-      - school-mysql
+      - "3308:3306"
     restart: always
     environment:
-      - MYSQL_ROOT_PASSWORD=123
-      - MYSQL_DATABASE=school
-#  docker-school:
-#    build: .
-#    image: docker-school
-#    container_name: docker-school-container
-#    restart: always
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - school-mysql
-#    depends_on:
-#      - schooldb
+      MYSQL_DATABASE: school
+      MYSQL_USER: root
+      MYSQL_PASSWORD: 123
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_ROOT_HOST: '%'
 
-networks:
-  school-mysql:
+  docker-school:
+    #build: .
+    #image: docker-school
+    #container_name: docker-school
+    #restart: always
+    #ports:
+    #  - "8080:8080"
+    #networks:
+    #  - school-mysql
+    depends_on:
+      - schooldb
+    build: .
+    expose:
+      - "8080"
+    command: "mvn clean spring-boot:run"

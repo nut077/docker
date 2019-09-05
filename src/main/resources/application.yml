@@ -27,12 +27,14 @@ jasypt:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/school
+    url: jdbc:mysql://schooldb:3308/school
+    #url: jdbc:mysql://localhost:3306/school
     username: root
     #password: 123
     password: ENC(pjL0VcIVf7fqbvUPJ2OifA==)
 
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     show-sql: true
     hibernate:
       ddl-auto: update #create-drop สร้าง schema ต่างๆที่เราได้ทำใน entity และจำ destroy schema เมื่อทำการปิด project #สร้าง schema แต่ไม่ destroy
