@@ -22,6 +22,11 @@ public class StudentService {
     return mapper.map(repository.findAll());
   }
 
+  public StudentDto findById(long id) {
+    Optional<Student> student = repository.findById(id);
+    return student.map(mapper::map).orElse(null);
+  }
+
   public StudentDto save(StudentDto dto) {
     return mapper.map(repository.save(mapper.map(dto)));
   }

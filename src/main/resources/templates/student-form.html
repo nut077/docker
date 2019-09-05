@@ -11,13 +11,36 @@
 </head>
 <body>
 <div class="container">
-  <h3>Student Directory</h3>
-  <hr/>
-  <p class="h4 mb-4">Save Student</p>
-  <form action="#" th:action="@{/save}" th:object="${student}" method="post">
-    <input type="hidden" th:field="*{id}"/>
-    <input type="text" th:field="*{firstName}" class="form-control mb-4 col-4" placeholder="First name"/>
-  </form>
+  <div class="row">
+    <div class="col-sm-8 offset-4">
+      <h3>Student Form</h3>
+      <form action="#" th:action="@{/save}" th:object="${student}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+          <label for="firstName">First name</label>
+          <input type="text" th:field="*{firstName}" id="firstName" class="form-control mb-4 col-4"
+                 placeholder="First name"/>
+        </div>
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="text" th:field="*{lastName}" id="lastName" class="form-control mb-4 col-4" placeholder="Last name"/>
+        </div>
+        <div class="form-group">
+          <label for="age">Age</label>
+          <input type="number" th:field="*{age}" id="age" class="form-control mb-4 col-4" placeholder="Age"/>
+        </div>
+        <div class="form-group">
+          <label for="activeStatus">Active status</label>
+          <select th:field="*{activeStatus}" id="activeStatus" class="form-control mb-4 col-4">
+            <option th:value="true">True</option>
+            <option th:value="false">False</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-info col-2" style="width: 90px">Save</button>
+        <a th:href="@{/}" class="btn btn-danger" style="width: 90px">Back</a>
+      </form>
+    </div>
+  </div>
 </div>
 </body>
 </html>
