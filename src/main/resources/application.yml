@@ -27,7 +27,7 @@ jasypt:
 
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/school
+    url: jdbc:mysql://schooldb:3306/school
     #url: jdbc:mysql://localhost:3306/school
     username: freedom
     #password: 123

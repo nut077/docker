@@ -1,26 +1,25 @@
 version: "3.7"
 services:
-#  schooldb:
-#    image: mysql:8.0.17
-#    container_name: schooldb
-#    ports:
-#      - "3306:3306"
-#    #restart: always
-#    environment:
-#      MYSQL_DATABASE: school
-#      MYSQL_USER: freedom
-#      MYSQL_PASSWORD: 123
-#      MYSQL_ROOT_PASSWORD: 123
-#      MYSQL_ROOT_HOST: '%'
-
-  docker-school:
-    #depends_on:
-    # - schooldb
-    image: docker-school
-    container_name: school
-#    links:
-#      - schooldb:mysql
-    build: .
+  schooldb:
+    image: mysql:8.0.17
+    container_name: schooldb
+    environment:
+      MYSQL_DATABASE: school
+      MYSQL_ROOT_PASSWORD: 123
+      MYSQL_USER: freedom
+      MYSQL_PASSWORD: 123
     ports:
-      - "8080:8080"
+      - "3306:3306"
+    #restart: always
+  docker-school:
+    build:
+      .
+    image: docker_docker-school
+    depends_on:
+     - schooldb
+    container_name: docker-school
+    ports:
+      - 8080:8080
+    links:
+      - schooldb:mysql
     #restart: always

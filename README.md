@@ -1,6 +1,10 @@
-docker network create school-mysql<br>
+in application.yml change spring.datasource.url from jdbc:mysql://localhost:3306/school to jdbc:mysql://schooldb:3306/school<br>
+mvn clean install -DskipTests<br>
+docker build -t docker-school .<br>
+docker network create school-network<br>
 docker pull mysql:8.0.17<br>
-docker run --name schooldb -e MYSQL_USER=freedom -e MYSQL_PASSWORD=123 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=school -p 3306:3306 -d mysql:8.0.17<br><br>
+docker run --name schooldb --network school-network -e MYSQL_USER=freedom -e MYSQL_PASSWORD=123 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=school -p 3306:3306 -d mysql:8.0.17<br><br>
+docker run --name school --network school-network -p 8080:8080 -d docker-school<br>
 docker pull phpmyadmin/phpmyadmin:4.8<br>
 docker run --name schooldb-admin -d --link schooldb:db -p 8081:80 phpmyadmin/phpmyadmin:4.8<br><br>
 docker ps ดู containerid ของ container name = schooldb<br>
