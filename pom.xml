@@ -26,7 +26,7 @@
 		<org.webjars.popper.version>1.15.0</org.webjars.popper.version>
 		<jackson.dataformat.version>2.9.9</jackson.dataformat.version>
 		<com.lmax.disruptor.version>3.4.2</com.lmax.disruptor.version>
-		<jasypt>2.1.1</jasypt>
+		<jasypt.version>2.1.1</jasypt.version>
 	</properties>
 
 	<dependencies>
