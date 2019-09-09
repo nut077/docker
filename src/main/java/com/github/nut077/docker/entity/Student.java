@@ -1,12 +1,14 @@
 package com.github.nut077.docker.entity;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 
 import javax.persistence.*;
 
 @Entity(name = "students")
+@Getter
+@Setter
 @SequenceGenerator(name = "student_seq")
-@Data
 public class Student {
 
   @Id
