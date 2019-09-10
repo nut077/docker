@@ -1,8 +1,8 @@
 version: "3"
 services:
-  schooldb2:
+  schooldb:
     image: mysql:8.0.17
-    container_name: schooldb2
+    container_name: schooldb
     environment:
       MYSQL_DATABASE: school
       MYSQL_ROOT_PASSWORD: 123
@@ -16,12 +16,18 @@ services:
   docker-school:
     build: .
     depends_on:
-      - schooldb2
+      - schooldb
     container_name: docker-school
     ports:
       - 8080:8080
     networks:
-      - school-networky
+      - school-network
     restart: always
+#    command: ["-c", "/opt/wait-for.sh schooldb:3306 && java -jar /opt/app.jar"]
+#    entrypoint: ["/bin/sh"]
+#    environment:
+#      - SPRING_DATASOURCE_URL=jdbc:mysql://schooldb:3306/school
+#      - SPRING_DATASOURCE_USERNAME=freedom
+#      - SPRING_DATASOURCE_PASSWORD=ENC(j2Dr5jtMPE89o3mizMJOzA==)
 networks:
   school-network:
