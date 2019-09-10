@@ -12,17 +12,16 @@ services:
       - "3306:3306"
     networks:
       - school-network
-    #restart: always
+    restart: always
   docker-school:
+    build: .
     depends_on:
       - schooldb2
-    build:
-      .
     container_name: docker-school
     ports:
       - 8080:8080
     networks:
-      - school-network
-    #restart: always
+      - school-networky
+    restart: always
 networks:
   school-network:
