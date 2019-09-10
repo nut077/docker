@@ -23,7 +23,12 @@ public class StudentController {
 
   @PostMapping("/students")
   public ResponseEntity<StudentDto> save(@RequestBody StudentDto dto) {
-    return new ResponseEntity<StudentDto>(studentService.save(dto), HttpStatus.CREATED);
+    return new ResponseEntity<>(studentService.save(dto), HttpStatus.CREATED);
+  }
+
+  @PutMapping("/students/{id}")
+  public ResponseEntity<StudentDto> update(@PathVariable Long id, @RequestBody StudentDto dto) {
+    return ResponseEntity.ok(studentService.update(id, dto));
   }
 
   @DeleteMapping("/students/{id}")

@@ -31,6 +31,14 @@ public class StudentService {
     return mapper.map(repository.save(mapper.map(dto)));
   }
 
+  public StudentDto update(Long id, StudentDto dto) {
+    StudentDto studentId = findById(id);
+    if (studentId != null) {
+      return save(dto);
+    }
+    return null;
+  }
+
   public String delete(Long id) {
     Optional<Student> student = repository.findById(id);
     if (student.isPresent()) {
