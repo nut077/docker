@@ -30,7 +30,7 @@ public class StudentWebController {
   }
 
   @PostMapping("/studentFormUpdate")
-  public String studentFormUpdate(@RequestParam("studentId") long id, Model model) {
+  public String studentFormUpdate(@RequestParam("studentId") Long id, Model model) {
     model.addAttribute("student", studentService.findById(id));
     return "student-form";
   }
@@ -42,7 +42,7 @@ public class StudentWebController {
   }
 
   @PostMapping("/delete")
-  public String delete(@ModelAttribute("studentId") long id) {
+  public String delete(@ModelAttribute("studentId") Long id) {
     studentService.delete(id);
     return "redirect:/";
   }

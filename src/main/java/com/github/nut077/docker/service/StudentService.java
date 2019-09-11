@@ -3,48 +3,18 @@ package com.github.nut077.docker.service;
 import com.github.nut077.docker.dto.StudentDto;
 import com.github.nut077.docker.dto.mapper.StudentMapper;
 import com.github.nut077.docker.entity.Student;
-import com.github.nut077.docker.exception.NotFoundException;
 import com.github.nut077.docker.repository.StudentRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.Optional;
-
 @Service
-@RequiredArgsConstructor
-public class StudentService {
+public class StudentService extends BaseService<Student, StudentDto, Long> {
 
   private final StudentRepository repository;
   private final StudentMapper mapper;
 
-  public List<StudentDto> findAll() {
-    return mapper.map(repository.findAll());
-  }
-
-  public StudentDto findById(long id) {
-    Optional<Student> student = repository.findById(id);
-    return student.map(mapper::map).orElse(null);
-  }
-
-  public StudentDto save(StudentDto dto) {
-    return mapper.map(repository.save(mapper.map(dto)));
-  }
-
-  public StudentDto update(Long id, StudentDto dto) {
-    StudentDto studentId = findById(id);
-    if (studentId != null) {
-      return save(dto);
-    }
-    return null;
-  }
-
-  public String delete(Long id) {
-    Optional<Student> student = repository.findById(id);
-    if (student.isPresent()) {
-      repository.deleteById(id);
-      return "Student id -->> " + id + " is deleted";
-    }
-    throw new NotFoundException("Student id -->> " + id + " not found");
+  public StudentService(StudentRepository repository, StudentMapper mapper) {
+    super(repository, mapper);
+    this.repository = repository;
+    this.mapper = mapper;
   }
 }

@@ -21,6 +21,11 @@ public class StudentController {
     return ResponseEntity.ok(studentService.findAll());
   }
 
+  @GetMapping("/students/{id}")
+  public ResponseEntity<StudentDto> findById(@PathVariable Long id) {
+    return ResponseEntity.ok(studentService.findById(id));
+  }
+
   @PostMapping("/students")
   public ResponseEntity<StudentDto> save(@RequestBody StudentDto dto) {
     return new ResponseEntity<>(studentService.save(dto), HttpStatus.CREATED);
@@ -32,7 +37,7 @@ public class StudentController {
   }
 
   @DeleteMapping("/students/{id}")
-  public ResponseEntity<String> delete(@PathVariable Long id) {
-    return ResponseEntity.ok(studentService.delete(id));
+  public void delete(@PathVariable Long id) {
+    studentService.delete(id);
   }
 }

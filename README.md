@@ -23,4 +23,12 @@ add in pom<br>
 cmd C:\Users\%user%\.m2\repository\org\jasypt\jasypt\1.9.2<br>
 java -cp jasypt-1.9.2.jar org.jasypt.intf.cli.JasyptPBEStringEncryptionCLI input="123" password=secretkey algorithm=PBEWithMD5AndDES<br>
 remove org.jasypt in pom<br>
+<br><br><br>
+other<br>
+Environment variables : SPRING_PROFILES_ACTIVE=local<br>
+คำสั่งเช็ค docker <br>
+docker -H 10.33.44.55:2376 --tls ps<br>
+killprocess by port<br>
+netstat -ano | findstr :8080<br>
+taskkill /PID 3192 /F<br>
 
