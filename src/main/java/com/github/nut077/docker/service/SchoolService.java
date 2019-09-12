@@ -3,6 +3,7 @@ package com.github.nut077.docker.service;
 import com.github.nut077.docker.dto.SchoolDto;
 import com.github.nut077.docker.dto.mapper.SchoolMapper;
 import com.github.nut077.docker.entity.School;
+import com.github.nut077.docker.exception.NotFoundException;
 import com.github.nut077.docker.repository.SchoolRepository;
 import org.springframework.stereotype.Service;
 
@@ -16,5 +17,9 @@ public class SchoolService extends BaseService<School, SchoolDto, Long>{
     super(schoolRepository, mapper);
     this.schoolRepository = schoolRepository;
     this.mapper = mapper;
+  }
+
+  public School findByIdEntity(Long id) {
+    return schoolRepository.findById(id).orElseThrow(() -> new NotFoundException("id: " + id + " -->> Not Found"));
   }
 }

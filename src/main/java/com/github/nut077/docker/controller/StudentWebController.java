@@ -1,7 +1,6 @@
 package com.github.nut077.docker.controller;
 
 import com.github.nut077.docker.dto.StudentDto;
-import com.github.nut077.docker.entity.Student;
 import com.github.nut077.docker.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,7 +36,7 @@ public class StudentWebController {
 
   @PostMapping("/save")
   public String save(@ModelAttribute("student") StudentDto studentDto) {
-    studentService.save(studentDto);
+    studentService.create(studentDto);
     return "redirect:/";
   }
 

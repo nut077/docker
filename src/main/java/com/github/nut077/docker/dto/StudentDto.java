@@ -1,5 +1,7 @@
 package com.github.nut077.docker.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.github.nut077.docker.entity.School;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,4 +14,6 @@ public class StudentDto {
   private String lastName;
   private int age;
   private String activeStatus;
+  @JsonIgnore
+  private School school;
 }

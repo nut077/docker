@@ -1,6 +1,7 @@
 package com.github.nut077.docker.controller;
 
 import com.github.nut077.docker.dto.StudentDto;
+import com.github.nut077.docker.service.SchoolService;
 import com.github.nut077.docker.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import java.util.List;
 public class StudentController {
 
   private final StudentService studentService;
+  private final SchoolService schoolService;
 
   @GetMapping("/students")
   public ResponseEntity<List<StudentDto>> findAll() {
@@ -26,9 +28,14 @@ public class StudentController {
     return ResponseEntity.ok(studentService.findById(id));
   }
 
-  @PostMapping("/students")
-  public ResponseEntity<StudentDto> save(@RequestBody StudentDto dto) {
-    return new ResponseEntity<>(studentService.save(dto), HttpStatus.CREATED);
+  @GetMapping("/students/schools/{schoolId}")
+  public ResponseEntity<List<StudentDto>> findBySchool(@PathVariable Long schoolId) {
+    return ResponseEntity.ok(studentService.findBySchool(schoolService.findByIdEntity(schoolId)));
+  }
+
+  @PostMapping("/students/{schoolId}")
+  public ResponseEntity<StudentDto> create(@PathVariable Long schoolId, @RequestBody StudentDto dto) {
+    return new ResponseEntity<>(studentService.create(schoolId, dto), HttpStatus.CREATED);
   }
 
   @PutMapping("/students/{id}")

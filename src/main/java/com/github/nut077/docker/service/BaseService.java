@@ -28,18 +28,18 @@ public abstract class BaseService<E, D, I> {
     return entity.map(mapper::mapToDto).orElseThrow(() -> new NotFoundException("id: " + id + " -->> Not Found"));
   }
 
-  public D save(D dto) {
+  public D create(D dto) {
     return mapper.mapToDto(repository.save(mapper.mapToEntity(dto)));
   }
 
   public D update(I id, D dto) {
     findById(id);
-    return save(dto);
+    return create(dto);
   }
 
   public void delete(I id) {
     findById(id);
     repository.deleteById(id);
-    log.info("id -->> {} is deleted", id);
+    log.info("id:{} -->> is deleted", id);
   }
 }
