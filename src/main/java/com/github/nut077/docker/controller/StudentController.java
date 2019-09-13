@@ -29,8 +29,13 @@ public class StudentController {
   }
 
   @GetMapping("/students/schools/{schoolId}")
-  public ResponseEntity<List<StudentDto>> findBySchool(@PathVariable Long schoolId) {
-    return ResponseEntity.ok(studentService.findBySchool(schoolService.findByIdEntity(schoolId)));
+  public ResponseEntity<List<StudentDto>> findBySchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
+    return ResponseEntity.ok(studentService.findBySchool(schoolService.findByIdEntity(schoolId), page));
+  }
+
+  @GetMapping("/students/schools/{schoolId}/totalPage")
+  public ResponseEntity<Integer> getTotalPage(@PathVariable Long schoolId) {
+    return ResponseEntity.ok(studentService.getTotalPage(schoolService.findByIdEntity(schoolId)));
   }
 
   @PostMapping("/students/{schoolId}")

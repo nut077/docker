@@ -50,3 +50,7 @@ spring:
     log-resolved-exception: false
   resources:
     add-mappings: false
+
+pageConfig:
+  page: 0
+  perPage: 5
