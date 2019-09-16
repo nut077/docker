@@ -1,5 +1,6 @@
 package com.github.nut077.docker.controller;
 
+import com.github.nut077.docker.dto.DataPageDto;
 import com.github.nut077.docker.dto.StudentDto;
 import com.github.nut077.docker.service.SchoolService;
 import com.github.nut077.docker.service.StudentService;
@@ -29,7 +30,7 @@ public class StudentController {
   }
 
   @GetMapping("/students/schools/{schoolId}")
-  public ResponseEntity findBySchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
+  public ResponseEntity<DataPageDto<StudentDto>> findBySchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
     return ResponseEntity.ok(studentService.findBySchool(schoolService.findByIdEntity(schoolId), page));
   }
 

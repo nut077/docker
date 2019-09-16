@@ -2,27 +2,33 @@ package com.github.nut077.docker.config;
 
 import com.github.benmanes.caffeine.cache.Caffeine;
 import lombok.extern.log4j.Log4j2;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Caching;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.caffeine.CaffeineCache;
 import org.springframework.cache.support.SimpleCacheManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.scheduling.annotation.Scheduled;
 
 import java.time.Duration;
 import java.util.Arrays;
 
+import static com.github.nut077.docker.config.CacheConfig.CacheName.*;
+
+@Configuration
 @Log4j2
 @EnableCaching
-@Configuration
 public class CacheConfig {
 
   @Bean
   public SimpleCacheManager buildSimpleCacheManager() {
-    CaffeineCache studentCache = buildCaffeineCache(CacheName.STUDENT, 100);
-    CaffeineCache studentsCache = buildCaffeineCache(CacheName.STUDENTS, 10);
+    CaffeineCache studentCache = buildCaffeineCache(STUDENT, 100);
+    CaffeineCache studentsCache = buildCaffeineCache(STUDENTS, 10);
+    CaffeineCache schoolCache = buildCaffeineCache(CacheName.SCHOOL, 100);
     CaffeineCache schoolsCache = buildCaffeineCache(CacheName.SCHOOLS, 10);
     SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
-    simpleCacheManager.setCaches(Arrays.asList(studentCache, studentsCache, schoolsCache));
+    simpleCacheManager.setCaches(Arrays.asList(studentCache, studentsCache, schoolCache, schoolsCache));
     simpleCacheManager.initializeCaches();
     return simpleCacheManager;
   }
@@ -37,9 +43,21 @@ public class CacheConfig {
             .build());
   }
 
+  @Scheduled(cron = "0 0 0 * * *") // ทุกๆเที่ยงคืนของทุกวัน
+  @Caching(evict = {
+          @CacheEvict(cacheNames = STUDENT, allEntries = true),
+          @CacheEvict(cacheNames = STUDENTS, allEntries = true),
+          @CacheEvict(cacheNames = SCHOOL, allEntries = true),
+          @CacheEvict(cacheNames = SCHOOLS, allEntries = true)
+  })
+  public void evictAll() {
+
+  }
+
   public static class CacheName {
     public static final String STUDENT = "STUDENT";
     public static final String STUDENTS = "STUDENTS";
+    public static final String SCHOOL = "SCHOOL";
     public static final String SCHOOLS = "SCHOOLS";
   }
 }

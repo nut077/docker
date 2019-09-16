@@ -12,6 +12,7 @@ import com.github.nut077.docker.repository.StudentRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -24,9 +25,9 @@ import java.util.Optional;
 import static com.github.nut077.docker.config.CacheConfig.CacheName.STUDENT;
 import static com.github.nut077.docker.config.CacheConfig.CacheName.STUDENTS;
 
-@CacheConfig(cacheNames = STUDENT)
-@Log4j2
 @Service
+@Log4j2
+@CacheConfig(cacheNames = STUDENT)
 public class StudentService extends BasePageAndSortService<Student, StudentDto, Long> {
 
   private final StudentRepository studentRepository;
@@ -57,7 +58,7 @@ public class StudentService extends BasePageAndSortService<Student, StudentDto, 
   }
 
   @Cacheable(cacheNames = STUDENTS)
-  public DataPageDto findBySchool(School school, String page) {
+  public DataPageDto<StudentDto> findBySchool(School school, String page) {
     if (StringUtils.isEmpty(page)) {
       page = this.page;
     }
@@ -75,5 +76,11 @@ public class StudentService extends BasePageAndSortService<Student, StudentDto, 
   @Override
   public StudentDto findById(Long id) {
     return super.findById(id);
+  }
+
+  @CachePut(key = "#student.id")
+  @Override
+  public StudentDto update(Long id, StudentDto dto) {
+    return super.update(id, dto);
   }
 }

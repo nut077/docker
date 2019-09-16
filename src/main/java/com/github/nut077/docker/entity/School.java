@@ -7,9 +7,9 @@ import javax.persistence.*;
 import java.util.List;
 
 @Entity(name = "schools")
-@SequenceGenerator(name = "school_seq")
 @Getter
 @Setter
+@SequenceGenerator(name = "school_seq")
 public class School {
 
   @Id
