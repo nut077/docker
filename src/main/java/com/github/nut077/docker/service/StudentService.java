@@ -9,6 +9,7 @@ import com.github.nut077.docker.entity.Student;
 import com.github.nut077.docker.exception.NotFoundException;
 import com.github.nut077.docker.repository.SchoolRepository;
 import com.github.nut077.docker.repository.StudentRepository;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
@@ -20,10 +21,11 @@ import org.springframework.util.StringUtils;
 
 import java.util.Optional;
 
-import static com.github.nut077.docker.config.StudentCacheConfig.CacheName.STUDENT;
-import static com.github.nut077.docker.config.StudentCacheConfig.CacheName.STUDENTS;
+import static com.github.nut077.docker.config.CacheConfig.CacheName.STUDENT;
+import static com.github.nut077.docker.config.CacheConfig.CacheName.STUDENTS;
 
 @CacheConfig(cacheNames = STUDENT)
+@Log4j2
 @Service
 public class StudentService extends BasePageAndSortService<Student, StudentDto, Long> {
 
@@ -54,7 +56,7 @@ public class StudentService extends BasePageAndSortService<Student, StudentDto, 
     }
   }
 
-  //@Cacheable(cacheNames = STUDENTS)
+  @Cacheable(cacheNames = STUDENTS)
   public DataPageDto findBySchool(School school, String page) {
     if (StringUtils.isEmpty(page)) {
       page = this.page;

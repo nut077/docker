@@ -10,5 +10,4 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface StudentRepository extends PagingAndSortingRepository<Student, Long> {
   Page<Student> findBySchool(School school, Pageable pageable);
-  int countBySchool(School school);
 }

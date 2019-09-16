@@ -14,14 +14,15 @@ import java.util.Arrays;
 @Log4j2
 @EnableCaching
 @Configuration
-public class StudentCacheConfig {
+public class CacheConfig {
 
   @Bean
   public SimpleCacheManager buildSimpleCacheManager() {
     CaffeineCache studentCache = buildCaffeineCache(CacheName.STUDENT, 100);
     CaffeineCache studentsCache = buildCaffeineCache(CacheName.STUDENTS, 10);
+    CaffeineCache schoolsCache = buildCaffeineCache(CacheName.SCHOOLS, 10);
     SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
-    simpleCacheManager.setCaches(Arrays.asList(studentCache, studentsCache));
+    simpleCacheManager.setCaches(Arrays.asList(studentCache, studentsCache, schoolsCache));
     simpleCacheManager.initializeCaches();
     return simpleCacheManager;
   }
@@ -39,5 +40,6 @@ public class StudentCacheConfig {
   public static class CacheName {
     public static final String STUDENT = "STUDENT";
     public static final String STUDENTS = "STUDENTS";
+    public static final String SCHOOLS = "SCHOOLS";
   }
 }
