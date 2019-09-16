@@ -18,15 +18,7 @@
 		<java.version>1.8</java.version>
 		<maven.compiler.plugin>3.8.1</maven.compiler.plugin>
 		<org.mapstruct.version>1.3.0.Final</org.mapstruct.version>
-		<org.lombok.version>1.18.8</org.lombok.version>
 		<io.swagger.version>2.9.2</io.swagger.version>
-		<org.webjars.jquery.version>3.4.1</org.webjars.jquery.version>
-		<org.webjars.bootstrap.version>4.3.1</org.webjars.bootstrap.version>
-		<org.webjars.locator.version>0.37</org.webjars.locator.version>
-		<org.webjars.popper.version>1.15.0</org.webjars.popper.version>
-		<jackson.dataformat.version>2.9.9</jackson.dataformat.version>
-		<com.lmax.disruptor.version>3.4.2</com.lmax.disruptor.version>
-		<jasypt.version>2.1.1</jasypt.version>
 	</properties>
 
 	<dependencies>
@@ -58,6 +50,10 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -73,7 +69,7 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${org.lombok.version}</version>
+			<version>1.18.10</version>
 			<optional>true</optional>
 		</dependency>
 		<dependency>
@@ -94,17 +90,17 @@
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>jquery</artifactId>
-			<version>${org.webjars.jquery.version}</version>
+			<version>3.4.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>bootstrap</artifactId>
-			<version>${org.webjars.bootstrap.version}</version>
+			<version>4.3.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.webjars</groupId>
 			<artifactId>popper.js</artifactId>
-			<version>${org.webjars.popper.version}</version>
+			<version>1.15.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -113,7 +109,7 @@
 		<dependency>
 			<groupId>com.fasterxml.jackson.dataformat</groupId>
 			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>${jackson.dataformat.version}</version>
+			<version>2.9.9</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -122,12 +118,17 @@
 		<dependency>
 			<groupId>com.lmax</groupId>
 			<artifactId>disruptor</artifactId>
-			<version>${com.lmax.disruptor.version}</version>
+			<version>3.4.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.github.ulisesbocchio</groupId>
 			<artifactId>jasypt-spring-boot-starter</artifactId>
-			<version>${jasypt.version}</version>
+			<version>2.1.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -160,7 +161,7 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>${org.lombok.version}</version>
+							<version>1.18.8</version>
 						</path>
 					</annotationProcessorPaths>
 				</configuration>
