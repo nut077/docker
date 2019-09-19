@@ -18,7 +18,7 @@ public class School {
   private String name;
   private String address;
 
-  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
   private List<Student> student;
 
   public void setStudent(List<Student> student) {

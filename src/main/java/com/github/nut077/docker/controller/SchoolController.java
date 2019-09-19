@@ -1,6 +1,8 @@
 package com.github.nut077.docker.controller;
 
+import com.github.nut077.docker.dto.DataPageDto;
 import com.github.nut077.docker.dto.SchoolDto;
+import com.github.nut077.docker.dto.StudentDto;
 import com.github.nut077.docker.service.SchoolService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,11 @@ public class SchoolController {
   @GetMapping("/schools/{id}")
   public ResponseEntity<SchoolDto> findById(@PathVariable Long id) {
     return ResponseEntity.ok(schoolService.findById(id));
+  }
+
+  @GetMapping("/schools/{id}/students")
+  public ResponseEntity<DataPageDto<StudentDto>> findStudentBySchoolId(@PathVariable Long id, @RequestParam(required = false) String page) {
+    return ResponseEntity.ok(schoolService.findStudentBySchoolId(id, page));
   }
 
   @PostMapping("/schools")
