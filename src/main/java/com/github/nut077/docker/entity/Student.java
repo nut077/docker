@@ -10,7 +10,7 @@ import javax.persistence.*;
 @Getter
 @Setter
 @SequenceGenerator(name = "student_seq")
-public class Student {
+public class Student extends Common {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")

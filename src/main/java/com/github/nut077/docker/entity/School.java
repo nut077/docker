@@ -10,7 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 @SequenceGenerator(name = "school_seq")
-public class School {
+public class School extends Common {
 
   @Id
   @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "school_seq")
