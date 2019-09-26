@@ -19,12 +19,12 @@ public class School extends Common {
   private String address;
 
   @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-  private List<Student> student;
+  private List<Student> students;
 
-  public void setStudent(List<Student> student) {
-    if (student != null) {
-      student.forEach(student1 -> student1.setSchool(this));
+  public void setStudent(List<Student> students) {
+    if (students != null) {
+      students.forEach(student -> student.setSchool(this));
     }
-    this.student = student;
+    this.students = students;
   }
 }

@@ -12,5 +12,5 @@ public class SchoolDto {
   private Long id;
   private String name;
   private String address;
-  private List<StudentDto> student;
+  private List<StudentDto> students;
 }
