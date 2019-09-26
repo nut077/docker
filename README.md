@@ -3,7 +3,7 @@ mvn clean install -DskipTests<br>
 docker build -t docker-school .<br>
 docker network create school-network<br>
 docker pull mysql:8.0.17<br>
-docker run --name schooldb --network school-network -e MYSQL_USER=freedom -e MYSQL_PASSWORD=123 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=school -p 3306:3306 -d --restart=always mysql:8.0.17<br><br>
+docker run --name schooldb --network school-network -e MYSQL_USER=freedom -e MYSQL_PASSWORD=123 -e MYSQL_ROOT_PASSWORD=123 -e MYSQL_DATABASE=school -e TZ=Asia/Bangkok -p 3306:3306 -d --restart=always mysql:8.0.17<br><br>
 docker run --name school --network school-network -p 8080:8080 -d --restart=always docker-school<br>
 docker pull phpmyadmin/phpmyadmin:4.8<br>
 docker run --name schooldb-admin -d --network school-network -p 8081:80 phpmyadmin/phpmyadmin:4.8<br><br>
