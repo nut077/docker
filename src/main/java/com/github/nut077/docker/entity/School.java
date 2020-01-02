@@ -6,25 +6,22 @@ import lombok.Setter;
 import javax.persistence.*;
 import java.util.List;
 
-@Entity(name = "schools")
 @Getter
 @Setter
-@SequenceGenerator(name = "school_seq")
+@Entity(name = "schools")
 public class School extends Common {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "school_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String name;
   private String address;
 
-  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
   private List<Student> students;
 
-  public void setStudent(List<Student> students) {
-    if (students != null) {
-      students.forEach(student -> student.setSchool(this));
-    }
+  public void setStudents(List<Student> students) {
+    students.forEach(student -> student.setSchool(this));
     this.students = students;
   }
 }

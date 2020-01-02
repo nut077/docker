@@ -1,4 +1,0 @@
-custom:
-  scheduler:
-    poolSize: 3
-    threadNamePrefix: Scheduler-

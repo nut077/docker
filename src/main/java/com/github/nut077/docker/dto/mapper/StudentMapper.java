@@ -7,11 +7,10 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 @Mapper(componentModel = "spring",
-        uses = {SetMapper.class, BooleanStringMapper.class},
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+  injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface StudentMapper extends BaseMapper<Student, StudentDto> {
 
   @Override
-  @Mapping(source = "isActive", target = "activeStatus")
-  StudentDto mapToDto(Student entity);
+  @Mapping(target = "school.id", source = "schoolId")
+  Student mapToEntity(StudentDto dto);
 }

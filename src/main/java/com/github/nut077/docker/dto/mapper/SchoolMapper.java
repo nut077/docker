@@ -6,6 +6,6 @@ import org.mapstruct.InjectionStrategy;
 import org.mapstruct.Mapper;
 
 @Mapper(componentModel = "spring",
-        injectionStrategy = InjectionStrategy.CONSTRUCTOR)
+  injectionStrategy = InjectionStrategy.CONSTRUCTOR)
 public interface SchoolMapper extends BaseMapper<School, SchoolDto> {
 }

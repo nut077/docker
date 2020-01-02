@@ -6,22 +6,20 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
-@Entity(name = "students")
 @Getter
 @Setter
-@SequenceGenerator(name = "student_seq")
+@Entity(name = "students")
 public class Student extends Common {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "student_seq")
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
   private String firstName;
   private String lastName;
   private int age;
-  private Boolean isActive;
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "school_id")
   @JsonIgnore
+  @JoinColumn(name = "schoolId")
+  @ManyToOne(fetch = FetchType.LAZY)
   private School school;
 }

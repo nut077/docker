@@ -3,41 +3,28 @@ package com.github.nut077.docker.controller;
 import com.github.nut077.docker.dto.StudentDto;
 import com.github.nut077.docker.service.StudentService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import static com.github.nut077.docker.dto.response.SuccessResponse.builder;
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
-@RequestMapping("/api")
 @RequiredArgsConstructor
-public class StudentController {
+public class StudentController extends CommonController {
 
   private final StudentService studentService;
 
   @GetMapping("/students")
-  public ResponseEntity<List<StudentDto>> findAll() {
-    return ResponseEntity.ok(studentService.findAll());
+  public ResponseEntity getAll() {
+    return ok(builder(studentService.getAll()).build());
   }
 
-  @GetMapping("/students/{id}")
-  public ResponseEntity<StudentDto> findById(@PathVariable Long id) {
-    return ResponseEntity.ok(studentService.findById(id));
-  }
-
-  @PostMapping("/students/{schoolId}")
-  public ResponseEntity<StudentDto> create(@PathVariable Long schoolId, @RequestBody StudentDto dto) {
-    return new ResponseEntity<>(studentService.create(schoolId, dto), HttpStatus.CREATED);
-  }
-
-  @PutMapping("/students/{id}")
-  public ResponseEntity<StudentDto> update(@PathVariable Long id, @RequestBody StudentDto dto) {
-    return ResponseEntity.ok(studentService.update(id, dto));
-  }
-
-  @DeleteMapping("/students/{id}")
-  public void delete(@PathVariable Long id) {
-    studentService.delete(id);
+  @PostMapping("/students")
+  public ResponseEntity create(@RequestBody StudentDto dto) {
+    return ok(builder(studentService.create(dto)).build());
   }
 }

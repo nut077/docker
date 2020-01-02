@@ -10,13 +10,6 @@ server:
     #บอก spring boot ให้ เปิด http2
     enabled: true
 
-  undertow:
-    accesslog:
-      #ให้ undertow เขียน log เมื่อมีการยิง request เข้ามาตามที่อยู่นี้
-      dir: undertow-accesslog
-      #log pattern
-      pattern: '%t %I %r %s %b %D'
-
   servlet:
     context-path: /
 
@@ -26,6 +19,9 @@ jasypt:
     password: secretkey
 
 spring:
+  main:
+    lazy-initialization: true
+
   datasource:
     #url: jdbc:mysql://schooldb:3306/school
     url: jdbc:mysql://localhost:3308/school
@@ -51,6 +47,8 @@ spring:
   resources:
     add-mappings: false
 
-pageConfig:
-  page: 0
-  perPage: 5
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
