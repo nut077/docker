@@ -4,10 +4,7 @@ import com.github.nut077.docker.dto.StudentDto;
 import com.github.nut077.docker.service.StudentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static com.github.nut077.docker.dto.response.SuccessResponse.builder;
 import static org.springframework.http.ResponseEntity.ok;
@@ -26,5 +23,15 @@ public class StudentController extends CommonController {
   @PostMapping("/students")
   public ResponseEntity create(@RequestBody StudentDto dto) {
     return ok(builder(studentService.create(dto)).build());
+  }
+
+  @GetMapping("/students/{studentId}")
+  public ResponseEntity findById(@PathVariable Long studentId) {
+    return ok(builder(studentService.findById(studentId)).build());
+  }
+
+  @GetMapping("/schools/{schoolId}/students")
+  public ResponseEntity studentInSchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
+    return ok(builder(studentService.findStudentBySchoolId(schoolId, page)).build());
   }
 }
