@@ -38,7 +38,7 @@ spring:
       hibernate.format_sql: false #ให้ format อยู่ในรูปที่อ่านง่ายขึ้น default = false
       hibernate.generate_statistics: false #วิเคราะได้ว่า query นี้ทำการเปิด ปิด connect เท่าไร จำนวนเวลา
       hibernate.query.immutable_entity_update_query_handling_mode: exception  #(warning | exception) default is warning
-    open-in-view: false #defalut คือ true jpa จะเปิด session เมื่ออยู่หน้า view
+    open-in-view: true #defalut คือ true jpa จะเปิด session เมื่ออยู่หน้า view
 
     #for handle 404 exception
   mvc:
@@ -57,3 +57,12 @@ custom:
   config:
     page: 0
     perPage: 5
+  caffeine:
+    cache:
+      schoolMaxSize: 10
+      studentMaxSize: 100
+      expireAfterAccess: 1h
+      expireAfterWrite: 24h
+  scheduler:
+    poolSize: 3
+    threadNamePrefix: Scheduler-

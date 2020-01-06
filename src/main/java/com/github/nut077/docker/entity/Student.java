@@ -19,7 +19,6 @@ public class Student extends Common {
   private int age;
 
   @JsonIgnore
-  @JoinColumn(name = "schoolId")
   @ManyToOne(fetch = FetchType.LAZY)
   private School school;
 }

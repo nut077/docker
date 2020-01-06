@@ -24,4 +24,9 @@ public class SchoolController extends CommonController {
   public ResponseEntity create(@RequestBody SchoolDto dto) {
     return ok(builder(schoolService.create(dto)).build());
   }
+
+  @GetMapping("/schools/{schoolId}/students")
+  public ResponseEntity studentInSchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
+    return ok(builder(schoolService.findStudentBySchoolId(schoolId, page)).build());
+  }
 }

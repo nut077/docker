@@ -17,7 +17,7 @@ public class School extends Common {
   private String name;
   private String address;
 
-  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL)
+  @OneToMany(mappedBy = "school", cascade = CascadeType.ALL, orphanRemoval = true)
   private List<Student> students;
 
   public void setStudents(List<Student> students) {

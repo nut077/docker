@@ -25,22 +25,6 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-log4j2</artifactId>
-		</dependency>
-		<!-- ให้ spring boot อ่านค่า yaml ที่เป็น config ของ log4j2 -->
-		<dependency>
-			<groupId>com.fasterxml.jackson.dataformat</groupId>
-			<artifactId>jackson-dataformat-yaml</artifactId>
-			<version>2.10.0</version>
-		</dependency>
-		<!-- ทำให้ log4j2 ทำงานแบบ async -->
-		<dependency>
-			<groupId>com.lmax</groupId>
-			<artifactId>disruptor</artifactId>
-			<version>3.4.2</version>
-		</dependency>
-		<dependency>
 			<groupId>io.springfox</groupId>
 			<artifactId>springfox-swagger2</artifactId>
 			<version>${io.springfox.version}</version>
@@ -51,16 +35,6 @@
 			<version>${io.springfox.version}</version>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-starter-logging</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-actuator</artifactId>
@@ -127,24 +101,18 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+		<!-- start cache -->
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-core</artifactId>
-			<version>${org.mockito.version}</version>
-			<scope>test</scope>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>org.mockito</groupId>
-			<artifactId>mockito-junit-jupiter</artifactId>
-			<version>${org.mockito.version}</version>
-			<scope>test</scope>
+			<groupId>com.github.ben-manes.caffeine</groupId>
+			<artifactId>caffeine</artifactId>
+			<version>2.8.0</version>
 		</dependency>
-		<dependency>
-			<groupId>info.solidsoft.mockito</groupId>
-			<artifactId>mockito-java8</artifactId>
-			<version>2.5.0</version>
-			<scope>test</scope>
-		</dependency>
+		<!-- end cache -->
 
 		<dependency>
 			<groupId>org.apache.commons</groupId>

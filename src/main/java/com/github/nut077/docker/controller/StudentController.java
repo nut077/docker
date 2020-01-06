@@ -29,9 +29,4 @@ public class StudentController extends CommonController {
   public ResponseEntity findById(@PathVariable Long studentId) {
     return ok(builder(studentService.findById(studentId)).build());
   }
-
-  @GetMapping("/schools/{schoolId}/students")
-  public ResponseEntity studentInSchool(@PathVariable Long schoolId, @RequestParam(required = false) String page) {
-    return ok(builder(studentService.findStudentBySchoolId(schoolId, page)).build());
-  }
 }
