@@ -8,6 +8,11 @@ import javax.persistence.*;
 
 @Getter
 @Setter
+@Table(
+  indexes = {
+    @Index(name = "students_idx_school_id", columnList = "school_id")
+  }
+)
 @Entity(name = "students")
 public class Student extends Common {
 

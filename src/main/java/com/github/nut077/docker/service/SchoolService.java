@@ -17,7 +17,6 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.cache.annotation.Caching;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -57,7 +56,7 @@ public class SchoolService {
     return schoolMapper.mapToDto(schoolRepository.save(schoolMapper.mapToEntity(dto)));
   }
 
-  public DataPageDto<StudentDto> findStudentBySchoolIdFromDatabase(Long schoolId, String page) {
+  /*public DataPageDto<StudentDto> findStudentBySchoolId(Long schoolId, String page) {
     SchoolDto schoolDto = findById(schoolId);
     if (StringUtils.isEmpty(page)) {
       page = pageProperty.getPage();
@@ -74,10 +73,29 @@ public class SchoolService {
       studentPage.getTotalPages(), studentPage.getTotalElements());
 
     return new DataPageDto<>(studentMapper.mapToListDto(studentPage.getContent()), pageDto);
-  }
+  }*/
 
   @Cacheable
-  public DataPageDto<StudentDto> findStudentBySchoolId(Long id, String page) {
+  public DataPageDto<StudentDto> findStudentBySchoolId(Long schoolId, String page) {
+    if (StringUtils.isEmpty(page)) {
+      page = pageProperty.getPage();
+    }
+    if (!page.equals("0")) {
+      page = String.valueOf(Integer.parseInt(page) - 1);
+    }
+
+    Pageable pageable = PageRequest.of(Integer.parseInt(page), pageProperty.getPerPage());
+
+    Page<Student> studentPage = studentRepository.findBySchool(schoolId, pageable);
+
+    PageDto pageDto = new PageDto(studentPage.getNumber(), studentPage.getSize(),
+      studentPage.getTotalPages(), studentPage.getTotalElements());
+
+    return new DataPageDto<>(studentMapper.mapToListDto(studentPage.getContent()), pageDto);
+  }
+
+  /*@Cacheable
+  public DataPageDto<StudentDto> findStudentBySchoolId2(Long id, String page) {
     SchoolDto schoolDto = findById(id);
     if (StringUtils.isEmpty(page)) {
       page = pageProperty.getPage();
@@ -92,5 +110,5 @@ public class SchoolService {
     PageDto pageDto = new PageDto(pages.getNumber(), pages.getSize(),
       pages.getTotalPages(), pages.getTotalElements());
     return new DataPageDto<>(pages.getContent(), pageDto);
-  }
+  }*/
 }
