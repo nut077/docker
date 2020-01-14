@@ -1,5 +1,6 @@
-package com.github.nut077.docker.config;
+package com.github.nut077.docker.controller.filter;
 
+import com.github.nut077.docker.config.JwtTokenUtil;
 import com.github.nut077.docker.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.log4j.Log4j2;
@@ -46,7 +47,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     // Once we get the token validate it.
     if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
       UserDetails userDetails = jwtUserDetailsService.loadUserByUsername(username);
-      if (jwtTokenUtil.validateToken(jwtToken, userDetails)) {
+      boolean isValidateToken = jwtTokenUtil.validateToken(jwtToken, userDetails);
+      if (isValidateToken) {
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken = new UsernamePasswordAuthenticationToken(
           userDetails, null, userDetails.getAuthorities()
         );

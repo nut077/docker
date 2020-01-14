@@ -27,8 +27,9 @@ public class CaffeineCacheConfig {
   public SimpleCacheManager buildSimpleCacheManager() {
     CaffeineCache schoolCache = buildCaffeineCache(CacheName.SCHOOL, props.getSchoolMaxSize());
     CaffeineCache studentCache = buildCaffeineCache(CacheName.STUDENT, props.getStudentMaxSize());
+    CaffeineCache userCache = buildCaffeineCache(CacheName.USER, props.getUserMaxSize());
     SimpleCacheManager simpleCacheManager = new SimpleCacheManager();
-    simpleCacheManager.setCaches(Arrays.asList(schoolCache, studentCache));
+    simpleCacheManager.setCaches(Arrays.asList(schoolCache, studentCache, userCache));
     simpleCacheManager.initializeCaches();
     return simpleCacheManager;
   }
@@ -50,7 +51,8 @@ public class CaffeineCacheConfig {
   @Caching(
     evict = {
       @CacheEvict(cacheNames = CacheName.SCHOOL, allEntries = true),
-      @CacheEvict(cacheNames = CacheName.STUDENT, allEntries = true)
+      @CacheEvict(cacheNames = CacheName.STUDENT, allEntries = true),
+      @CacheEvict(cacheNames = CacheName.USER, allEntries = true)
     }
   )
   public void evictAll() {
@@ -60,6 +62,7 @@ public class CaffeineCacheConfig {
   public static class CacheName {
     public static final String SCHOOL = "SCHOOL";
     public static final String STUDENT = "STUDENT";
+    public static final String USER = "USER";
 
     private CacheName() {
     }

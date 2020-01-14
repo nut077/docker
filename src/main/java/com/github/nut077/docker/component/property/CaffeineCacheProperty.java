@@ -25,6 +25,10 @@ public class CaffeineCacheProperty {
   @NotNull
   private final Integer studentMaxSize;
 
+  @Min(1)
+  @NotNull
+  private final Integer userMaxSize;
+
   @NotNull
   private final Duration expireAfterAccess;
 
