@@ -1,12 +1,13 @@
 package com.github.nut077.docker.controller;
 
-import com.github.nut077.docker.config.JwtTokenUtil;
+import com.github.nut077.docker.util.JwtTokenUtil;
 import com.github.nut077.docker.dto.UserDto;
 import com.github.nut077.docker.entity.JwtRequest;
 import com.github.nut077.docker.entity.JwtResponse;
 import com.github.nut077.docker.entity.User;
 import com.github.nut077.docker.service.JwtUserDetailsService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -23,6 +24,7 @@ import java.util.ArrayList;
 import static com.github.nut077.docker.dto.response.SuccessResponse.builder;
 import static org.springframework.http.ResponseEntity.ok;
 
+@Log4j2
 @CrossOrigin
 @RestController
 @RequiredArgsConstructor
@@ -37,7 +39,9 @@ public class JwtAuthenicationController extends CommonController {
     authenticate(authenticationRequest.getUsername(), authenticationRequest.getPassword());
     UserDetails userDetails = userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
     String token = jwtTokenUtil.generateToken(userDetails);
-    return ok(builder(new JwtResponse(token)).build());
+    return ok()
+      .header("Authorization", "Bearer " + token)
+      .body(builder(new JwtResponse(token)).build());
   }
 
   @PostMapping("/register")

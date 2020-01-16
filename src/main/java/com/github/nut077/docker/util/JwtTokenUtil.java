@@ -1,4 +1,4 @@
-package com.github.nut077.docker.config;
+package com.github.nut077.docker.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -15,7 +15,8 @@ import java.util.function.Function;
 @Component
 public class JwtTokenUtil {
 
-  public static final long JWT_TOKEN_VALIDITY = 5 * 60 * 60;
+  //public static final long JWT_TOKEN_VALIDITY = 24 * 60 * 60; // 24 hours
+  public static final long JWT_TOKEN_VALIDITY = 30; // 24 hours
 
   @Value("${jwt.secret}")
   private String secret;
@@ -41,7 +42,7 @@ public class JwtTokenUtil {
     return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
   }
 
-  private Boolean isTokenEpired(String token) {
+  private Boolean isTokenExpired(String token) {
     Date expiration = getExpirationDateFromToken(token);
     return expiration.before(new Date());
   }
@@ -67,11 +68,11 @@ public class JwtTokenUtil {
   }
 
   public Boolean canTokenBeRefreshed(String token) {
-    return !isTokenEpired(token) || ignoreTokenExpiration(token);
+    return !isTokenExpired(token) || ignoreTokenExpiration(token);
   }
 
   public Boolean validateToken(String token, UserDetails userDetails) {
     String username = getUsernameFromToken(token);
-    return username.equals(userDetails.getUsername()) && !isTokenEpired(token);
+    return username.equals(userDetails.getUsername()) && !isTokenExpired(token);
   }
 }

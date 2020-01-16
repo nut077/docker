@@ -17,6 +17,11 @@ public class Role {
 
   private String name;
 
-  @ManyToMany(mappedBy = "roles")
+  @ManyToMany
+  @JoinTable(
+    name = "users_roles",
+    joinColumns = @JoinColumn(name = "roles_id"),
+    inverseJoinColumns = @JoinColumn(name = "users_id")
+  )
   private Set<User> users;
 }

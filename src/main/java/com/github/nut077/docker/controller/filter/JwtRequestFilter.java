@@ -1,6 +1,6 @@
 package com.github.nut077.docker.controller.filter;
 
-import com.github.nut077.docker.config.JwtTokenUtil;
+import com.github.nut077.docker.util.JwtTokenUtil;
 import com.github.nut077.docker.service.JwtUserDetailsService;
 import io.jsonwebtoken.ExpiredJwtException;
 import lombok.extern.log4j.Log4j2;
@@ -40,8 +40,6 @@ public class JwtRequestFilter extends OncePerRequestFilter {
       } catch (ExpiredJwtException e) {
         log.info("JWT Token has expired");
       }
-    } else {
-      log.warn("JWT Token does not begin with Bearer String");
     }
 
     // Once we get the token validate it.
