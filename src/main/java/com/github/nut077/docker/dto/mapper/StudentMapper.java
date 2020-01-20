@@ -11,6 +11,6 @@ import org.mapstruct.Mapping;
 public interface StudentMapper extends BaseMapper<Student, StudentDto> {
 
   @Override
-  @Mapping(target = "school.id", source = "schoolId")
-  Student mapToEntity(StudentDto dto);
+  @Mapping(target = "schoolId", source = "school.id")
+  StudentDto mapToDto(Student entity);
 }

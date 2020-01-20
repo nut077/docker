@@ -4,6 +4,7 @@ import com.github.nut077.docker.controller.filter.JwtRequestFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -46,8 +47,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     http
       .csrf().disable()
       .authorizeRequests()
-      .antMatchers("/api/authenticate", "/api/register", "/api/schools/**", "/api/students/**")
-      .permitAll()
+      .antMatchers(HttpMethod.POST, "/api/authenticate", "/api/register").permitAll()
+      .antMatchers(HttpMethod.GET, "/api/schools/**", "/api/students/**").permitAll()
       .anyRequest().authenticated()
       .and()
       .exceptionHandling().authenticationEntryPoint(jwtAuthenticationEntryPoint)
