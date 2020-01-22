@@ -33,4 +33,13 @@ docker -H 10.33.44.55:2376 --tls ps<br>
 killprocess by port<br>
 netstat -ano | findstr :8080<br>
 taskkill /PID 3192 /F<br>
+<br>run spring boot file bat<br>
+@echo off<br>
+set prj.name=bpmfacade-service<br>
+title %prj.name% build<br>
+rem cd ..<br>
+rem cd %prj.name%<br>
+call mvn clean spring-boot:run -Drun.jvmArguments="-Dspring.profiles.active=local"<br>
+pause<br>
+
 
