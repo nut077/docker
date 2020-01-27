@@ -1,13 +1,17 @@
 package com.github.nut077.docker.service;
 
 import com.github.nut077.docker.dto.StudentDto;
+import com.github.nut077.docker.dto.StudentUpdateDto;
 import com.github.nut077.docker.dto.mapper.StudentMapper;
+import com.github.nut077.docker.dto.mapper.StudentUpdateMapper;
+import com.github.nut077.docker.entity.Student;
 import com.github.nut077.docker.exception.NotFoundException;
 import com.github.nut077.docker.repository.StudentRepository;
 import com.google.common.collect.Lists;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
@@ -23,6 +27,7 @@ public class StudentService {
 
   private final StudentRepository studentRepository;
   private final StudentMapper studentMapper;
+  private final StudentUpdateMapper studentUPdateMapper;
 
   public List<StudentDto> getAll() {
     return studentMapper.mapToListDto(Lists.newArrayList(studentRepository.findAll()));
@@ -35,7 +40,18 @@ public class StudentService {
 
   @Cacheable
   public StudentDto findById(Long studentId) {
-    return studentMapper.mapToDto(studentRepository.findById(studentId)
-      .orElseThrow(() -> new NotFoundException("Student id [" + studentId + "] is not found")));
+    return studentMapper.mapToDto(findStudentById(studentId));
+  }
+
+  @CachePut(key = "#id")
+  public StudentDto update(Long id, StudentUpdateDto dto) {
+    Student student = studentUPdateMapper.mapToEntity(dto, findStudentById(id));
+    Student studentSaved = studentRepository.save(student);
+    return studentMapper.mapToDto(studentSaved);
+  }
+
+  private Student findStudentById(Long id) {
+    return studentRepository.findById(id)
+      .orElseThrow(() -> new NotFoundException("Student id [" + id + "] is not found"));
   }
 }

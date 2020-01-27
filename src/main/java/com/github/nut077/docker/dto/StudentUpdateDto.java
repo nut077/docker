@@ -5,10 +5,8 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class StudentDto {
+public class StudentUpdateDto {
 
-  private Long id;
-  private Long schoolId;
   private String firstName;
   private String lastName;
   private int age;

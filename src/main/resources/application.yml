@@ -52,7 +52,7 @@ management:
 custom:
   config:
     page: 0
-    perPage: 20
+    perPage: 5
   caffeine:
     cache:
       schoolMaxSize: 10
